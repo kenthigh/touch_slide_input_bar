@@ -5,7 +5,7 @@ const config = {
 const fs = require('fs')
 const express = require('express')
 const webpack = require('webpack')
-const webpack_config = require('./webpack.config')('dev')
+const webpack_config = require('./webpack.config')
 var app = express()
 const output = './dist'
 //webpack打包监控
@@ -17,10 +17,8 @@ compiler.watch({
       color: true
     }))
   })
-
 //本地服务
 app.use(function (req, res, next) {
-    console.log('Kent is the king')
     console.log('%s %s - %s', new Date().toISOString(), req.method, req.url)
     return next()
   })
