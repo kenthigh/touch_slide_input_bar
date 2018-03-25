@@ -30,7 +30,7 @@ var DragControl = function() {
     prevPositionX: initTranslateX,
   };
   var self = this;
-  
+  var timer = {};
 
 
   //刻度模板
@@ -73,12 +73,12 @@ var DragControl = function() {
   var count_touchstart = 0
   var count_touchmove = 0
 
-  // //手指触摸开始
-  // $box.bind('touchstart', touchstartCallBack)
-  // //手指触摸移动
-  // $box.bind('touchmove', touchMoveCallBack)
-  // //手指离开屏幕
-  // $box.bind('touchend', touchEndCallBack)
+  //手指触摸开始
+  $box.bind('touchstart', touchstartCallBack)
+  //手指触摸移动
+  $box.bind('touchmove', touchMoveCallBack)
+  //手指离开屏幕
+  $box.bind('touchend', touchEndCallBack)
 
   function touchstartCallBack(e) {
     startTime = Date.now()
@@ -130,11 +130,10 @@ var DragControl = function() {
       $dragBar[0].style.WebkitTransition = $dragBar[0].style.transition = 'transform ' + guanXingTime + 'ms cubic-bezier(0.1, 0.57, 0.1, 1)';
       moveTo(draging.positionX += speed)
     }
-    setTimeout(function() {
-      // console.log('cancelTransitionTime->', cancelTransitionTime)
+    if(timer) clearTimeout(timer)
+    timer = setTimeout(function() {
       $dragBar[0].style.WebkitTransition = $dragBar[0].style.transition = '';
     }, cancelTransitionTime + 300 )
-    // console.log('draging.prevPositionX--> ', draging.prevPositionX)
   }
 
   function moveTo(pos) {

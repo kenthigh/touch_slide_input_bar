@@ -34,6 +34,6 @@ module.exports = {
         template: 'page/demo.pug',      
       }),
       new ExtractTextPlugin("[name].css"),
-      new webpack.optimize.UglifyJsPlugin()
+      // new webpack.optimize.UglifyJsPlugin()
     ]
   }
