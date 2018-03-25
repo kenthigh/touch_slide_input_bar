@@ -2,14 +2,21 @@ require('../style/main.styl')
 import $ from "jquery"
 import { setTimeout } from 'timers';
 $(document).ready(function() {
-  var dragBox = new DragControl()   
+  var dragBox = new DragControl()
+
+  $('#btn').click(function() {
+    //取到数据
+    alert($('#data').html())
+  })
+
 })
 
 
 var DragControl = function() {
-  var $dragBar = $('#drag-bar');
-  var $box = $('#box');
-  var $outPutData = $('#data')
+  var value = 0; //输出值
+  var $dragBar = $('#drag-bar'); //刻度容器
+  var $box = $('#box'); //刻度容器外层BOX
+  var $outPutData = $('#data') //输出数据
   var html = '';
   var screenWidth = $(window).width();
   var isTouch = false;
@@ -17,7 +24,6 @@ var DragControl = function() {
   var initPaddingRight = $box.width() / 2 - 11;
   var self = this;
   var timer = {};
-  var value = 0;
   var minValue = 0.50;
   var maxValue = 33.30;
   var timer = null;
@@ -86,9 +92,9 @@ var DragControl = function() {
     
     value =  $box.scrollLeft() / 110 + 0.5 //位移转换为刻度的算法，每1个单位是110像素位移.
     value = value.toFixed(2) //保留2位小数
-    if( value <= minValue) { value = minValue.toFixed(2) } //极限值控制
-    if( value >= maxValue) { value = maxValue.toFixed(2) } //极限值控制
-    $outPutData.html( value ) //输出刻度值
+    if( value <= minValue) { value = minValue.toFixed(2) } //最小值限制
+    if( value >= maxValue) { value = maxValue.toFixed(2) } //最大值限制
+    $outPutData.html( value ) //最终输出刻度值
 
     if( timer == null ) {
       timer = setInterval(function() {
