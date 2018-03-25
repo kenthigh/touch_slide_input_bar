@@ -20,7 +20,6 @@ var DragControl = function() {
   var value = 0;
   var minValue = 0.50;
   var maxValue = 33.30;
-  var oldValue = 0;
   var timer = null;
   var isTouching = false;
   var test = 0
@@ -61,10 +60,6 @@ var DragControl = function() {
   html += getScaleHtml.theLast()
   $dragBar.html(html)
 
-  //拖拽
-  var count_touchstart = 0
-  var count_touchmove = 0
-
   //手指触摸开始
   $box.bind('touchstart', touchstartCallBack)
   //手指触摸移动
@@ -84,31 +79,27 @@ var DragControl = function() {
     isTouching = false
   }
 
-  function watchScrollValueChange() {
-    if(oldValue != $box.scrollLeft()) {
-      oldValue = $box.scrollLeft()
-    } else {
-      clearInterval(timer)
-    }
-  }
-
   function scrollCallBack() {
-    var _scrollLeft, _mo
-    value =  $box.scrollLeft() / 110 + 0.5
-    value = value.toFixed(2)
-    if( value <= 0.5) { value = minValue.toFixed(2) }
-    if( value >= 33.3) { value = maxValue.toFixed(2) }
-    $outPutData.html( value )
+    var _scrollLeft, 
+        _mo, //模值
+        oldValue = 0;
+    
+    value =  $box.scrollLeft() / 110 + 0.5 //位移转换为刻度的算法，每1个单位是110像素位移.
+    value = value.toFixed(2) //保留2位小数
+    if( value <= minValue) { value = minValue.toFixed(2) } //极限值控制
+    if( value >= maxValue) { value = maxValue.toFixed(2) } //极限值控制
+    $outPutData.html( value ) //输出刻度值
 
     if( timer == null ) {
       timer = setInterval(function() {
-        if(oldValue != $box.scrollLeft() ) {
+        if(oldValue != $box.scrollLeft()) { //判断滚动是否停止
           oldValue = $box.scrollLeft()
         } else {
-          if(isTouching){ return }
+          //当滚动停止时，则让刻度回归最近的一个刻度。
+          if( isTouching ){ return } //如果手指没放开，则不执行回归刻度
           _scrollLeft = $box.scrollLeft()
-          _mo = _scrollLeft % 11
-          if( _mo != 0) {
+          _mo = _scrollLeft % 11 //滚动一个刻度的像素是11px，用滚动距离模11，就能判断是否在刻度上。
+          if( _mo != 0) { //判断是否停在刻度上
             for(var i = 0; i < 10; i++) {
               if(_scrollLeft % 11 == 0) {
                 $box.animate({ scrollLeft: _scrollLeft }, 100);
@@ -127,6 +118,7 @@ var DragControl = function() {
         }
       }, 100)
     }
+
   }
 
 
