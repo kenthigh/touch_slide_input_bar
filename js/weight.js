@@ -108,10 +108,7 @@ var DragControl = function() {
           _mo, //模值
           oldValue = 0,
           intervalScroll = null;
-      console.log(' target.scrollLeft()-->',  isHoriz ? target.scrollLeft() : target.scrollTop())
       value =  ((isHoriz ? target.scrollLeft() : target.scrollTop()) / 110) * 10 + minValue //位移转换为刻度的算法，每1个单位是110像素位移.
-      console.log(value)
-      
       value = value.toFixed(0) //保留0位小数
       if( value <= minValue) { value = minValue.toFixed(0) } //最小值限制
       if( value >= maxValue) { value = maxValue.toFixed(0) } //最大值限制
@@ -129,7 +126,8 @@ var DragControl = function() {
             if( _mo != 0) { //判断是否停在刻度上
               for(var i = 0; i < 10; i++) {
                 if(_scrollDistance % 11 == 0) {
-                  target.animate({ scrollTop: _scrollDistance }, 100);
+                  isHoriz ? target.animate({ scrollLeft: _scrollDistance }, 100) : target.animate({ scrollTop: _scrollDistance }, 100)
+                  // target.animate({ scrollTop: _scrollDistance }, 100);
                   break;
                 }
                 //四舍五入
