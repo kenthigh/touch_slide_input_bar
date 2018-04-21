@@ -1,4 +1,5 @@
 require('../style/main.styl')
+
 import $ from "jquery"
 import { setTimeout } from 'timers';
 $(document).ready(function() {
