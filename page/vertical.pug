@@ -1,0 +1,33 @@
+doctype html
+html(lang="zh-CN")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    title 竖向滑动条
+    link(rel="stylesheet" href="./v.css")
+  body 
+    script(type="text/javascript" src="./v.js")
+    .slide-tool-wrap
+      .title 收缩压(高压)
+      .container
+        .show-data-container
+          .result#data 70
+          .unit mmHg
+        .wrap
+          .middle-line
+          .box#box
+            .inside#drag-bar
+    .slide-tool-wrap
+      .title 舒张压(低压)
+      
+      .container
+        .show-data-container
+          .result#data-below 20
+          .unit mmHg
+        .wrap
+          .middle-line
+          .box#box-below
+            .inside#drag-bar-below
+
+          

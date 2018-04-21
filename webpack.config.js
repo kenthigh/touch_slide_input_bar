@@ -20,7 +20,6 @@ module.exports = {
     module: {
       rules: [
         { test: /\.pug$/, loader: 'pug-loader' },
-        // { test: /.js$/, loader: 'babel-loader' },
         { test: /\.styl$/, loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'stylus-loader'] 
@@ -31,7 +30,18 @@ module.exports = {
     plugins: [
       new HtmlWebpackPlugin({
         inject: false,
-        template: 'page/demo.pug',      
+        template: 'page/demo.pug', 
+        filename: 'm.html',     
+      }),
+      new HtmlWebpackPlugin({
+        inject: false,
+        template: 'page/vertical.pug',
+        filename: 'v.html'
+      }),
+      new HtmlWebpackPlugin({
+        inject: false,
+        template: 'page/weight.pug',
+        filename: 'weight.html'
       }),
       new ExtractTextPlugin("[name].css"),
       // new webpack.optimize.UglifyJsPlugin()
