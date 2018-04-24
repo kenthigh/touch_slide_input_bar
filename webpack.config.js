@@ -43,6 +43,11 @@ module.exports = {
         template: 'page/weight.pug',
         filename: 'weight.html'
       }),
+      new HtmlWebpackPlugin({
+        inject: false,
+        template: 'page/tanghua.pug',
+        filename: 'tanghua.html'
+      }),
       new ExtractTextPlugin("[name].css"),
       // new webpack.optimize.UglifyJsPlugin()
     ]

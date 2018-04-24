@@ -1,4 +1,4 @@
-require('../style/main.styl')
+require('../style/tanghua.styl')
 
 import $ from "jquery"
 import { setTimeout } from 'timers';
@@ -25,8 +25,8 @@ var DragControl = function() {
   var initPaddingRight = $box.width() / 2 - 11;
   var self = this;
   var timer = {};
-  var minValue = 0.50;
-  var maxValue = 33.30;
+  var minValue = 0;
+  var maxValue = 30;
   var timer = null;
   var isTouching = false;
   var test = 0
@@ -34,9 +34,6 @@ var DragControl = function() {
 
   //刻度模板
   var getScaleHtml = {
-    beforeOne: function() {
-      return '<div class="short-line"></div><div class="short-line"></div><div class="short-line"></div><div class="short-line"></div><div class="short-line"></div><div class="long-line"><p>1</p></div>'
-    },
     shortLine: function() {
       return '<div class="short-line"></div>'
     },
@@ -53,23 +50,22 @@ var DragControl = function() {
                 'padding-right':  initPaddingRight + 'px'})
 
   //刻度模板注入
-  html += getScaleHtml.beforeOne();
-  for(var i = 0; i < 32; i++) {
+  html += getScaleHtml.longLine(0.0)
+  for(var i = 0; i < 30; i++) {
     for(var j = 0; j < 9; j++) {
       html += getScaleHtml.shortLine()
       if(j == 8) {
-        html += getScaleHtml.longLine(i + 2)
+        html += getScaleHtml.longLine(i + 1)
         j = 0;
         break;
       }
     }
   }
-  html += getScaleHtml.theLast()
   $dragBar.html(html)
 
 
   //设定默认值
-  setDefaultValue($box, $outPutData, 6.00, 605)
+  setDefaultValue($box, $outPutData, '6.0', 605)
 
   function setDefaultValue(target, valueTarget, value, px) {
     target.scrollLeft(px)
@@ -100,10 +96,10 @@ var DragControl = function() {
     var _scrollLeft, 
         _mo, //模值
         oldValue = 0;
-    value =  $box.scrollLeft() / 110 + 0.5 //位移转换为刻度的算法，每1个单位是110像素位移.
-    value = value.toFixed(2) //保留2位小数
-    if( value <= minValue) { value = minValue.toFixed(2) } //最小值限制
-    if( value >= maxValue) { value = maxValue.toFixed(2) } //最大值限制
+    value =  $box.scrollLeft() / 110 //位移转换为刻度的算法，每1个单位是110像素位移.
+    value = value.toFixed(1) //保留1位小数
+    if( value <= minValue) { value = minValue.toFixed(1) } //最小值限制
+    if( value >= maxValue) { value = maxValue.toFixed(1) } //最大值限制
     $outPutData.html( value ) //最终输出刻度值
 
     if( timer == null ) {

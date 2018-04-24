@@ -85,9 +85,17 @@ var DragControl = function() {
   $box.bind('touchmove', touchMoveCallBack)
   $box.bind('touchend', touchEndCallBack)
 
+  setDefaultValue($box, $outPutData, 170, 1320, false)
+  setDefaultValue($boxT, $outPutDataT, 50, 220, true)
   
-  
-  
+  function setDefaultValue(target, valueTarget, value, px, isHoriz) {
+    if(isHoriz) {
+      target.scrollLeft(px)
+    } else {
+      target.scrollTop(px)
+    }
+    valueTarget.html( value )
+  }
   function touchstartCallBack( target, valueTarget, min, max, isHoriz ) {
     return function() {
         target.unbind( "scroll" ).bind('scroll', scrollCallBack( target, valueTarget, min, max, isHoriz))
