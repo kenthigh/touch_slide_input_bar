@@ -67,7 +67,7 @@ var DragControl = function() {
    //刻度模板注入
    html = ''
    html += getScaleHtml.longLine(160) //第一根长线数字
-   for(var i = 16; i > 0; i--) {
+   for(var i = 14; i > 0; i--) {
      for(var j = 9; j > 0; j--) {
        html += getScaleHtml.shortLine()
        if(j == 1) {
