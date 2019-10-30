@@ -2,6 +2,7 @@ const config = {
     port: '8086',
     output: './dist'
 }
+
 const fs = require('fs')
 const express = require('express')
 const webpack = require('webpack')

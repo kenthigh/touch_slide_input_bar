@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const glob = require('globby')
 const path = require('path')
-const webpack = require('webpack'); 
+const webpack = require('webpack');
 var entryMap = {}
 
 var fileList = glob.sync(['./js/*.js'])
@@ -19,36 +19,44 @@ module.exports = {
     },
     module: {
       rules: [
-        { test: /\.pug$/, loader: 'pug-loader' },
-        { test: /\.styl$/, loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'stylus-loader'] 
-        })},
-        { test: /\.png$/, loader: 'file-loader'}
+        {
+          test: /\.pug$/,
+          loader: 'pug-loader'
+        },
+        {
+          test: /\.styl$/,
+          loader: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ['css-loader', 'stylus-loader']
+          })
+        },
+        {
+          test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+          }
+        },
+        {
+          test: /\.(png|jpg|gif|svg)$/,
+          loader: 'file-loader?name=imgs/[name].[ext]',
+          options: {
+            name: 'img/[name].[ext]'
+          }
+        }
       ]
     },
     plugins: [
       new HtmlWebpackPlugin({
-        inject: false,
-        template: 'page/demo.pug', 
-        filename: 'm.html',     
+        inject: 'body',
+        template: 'page/home.pug',
+        filename: 'home.html',
       }),
       new HtmlWebpackPlugin({
-        inject: false,
-        template: 'page/vertical.pug',
-        filename: 'v.html'
-      }),
-      new HtmlWebpackPlugin({
-        inject: false,
-        template: 'page/weight.pug',
-        filename: 'weight.html'
-      }),
-      new HtmlWebpackPlugin({
-        inject: false,
-        template: 'page/tanghua.pug',
-        filename: 'tanghua.html'
+        inject: 'body',
+        template: 'page/study.pug',
+        filename: 'study.html',
       }),
       new ExtractTextPlugin("[name].css"),
-      // new webpack.optimize.UglifyJsPlugin()
     ]
   }
